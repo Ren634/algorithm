@@ -5,7 +5,7 @@ int main(void){
     int tmp,array[10],i, j,count=0;
     srand((unsigned int)time(NULL));
     for (i = 0; i < 10;++i){
-        array[i] = rand();
+        array[i] = 0 + (int)(rand() *(9 + 1.0) / (1.0 + RAND_MAX));
         printf("array[%d] = %d\n", i, array[i]);
     }
     printf("\n");
