@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<time.h>
 #include<stdlib.h>
-#define lim 7
+#define lim 10
+#define array_size lim - 1
 
-void build_heap(int *, int);
+void build_heap(int *, int, int);
 void swap(int *, int *);
 void heap_sort(int *);
 
@@ -23,20 +24,21 @@ int main(void){
     for (i = 0; i < lim;++i){
         printf("array[%d]: %d\n", i, array[i]);
     }
-
+    free(array);
     return 0;
 }
 
-void build_heap(int *array,int i){
+void build_heap(int *array,int i,int length){
     int parent = i, child = parent * 2 + 1;
-    while(child < lim){
-        if (array[child] < array[child + 1]){
+    while(child <= length){
+        if (child < length && array[child] < array[child + 1]){
             ++child;
         }
-        if(array[parent] < array[child]){
-            swap(&array[parent],&array[child]);
+        if(array[parent] >= array[child]){
+            break;
         }
-        ++parent;
+        swap(&array[parent],&array[child]);
+        parent = child;
         child = parent * 2 + 1;
     }
 }
@@ -50,16 +52,16 @@ void swap(int *x, int *y){
 
 void heap_sort(int *array){
     int i;
-    for (i = 0 ;i <= lim / 2;++i){
-        build_heap(array,i);
+    for (i = (array_size - 1) / 2; i >= 0; --i){
+        build_heap(array, i,array_size);
     }
     for (int j = 0; j < lim;++j){
         printf("array[%d]: %d\n", j, array[j]);
     }
     printf("\n");
 
-    for (i = 0; i < (lim - i) / 2;++i){
-        swap(&array[0], &array[lim - 1 - i]);
-        build_heap(array, i);
+    for (i = array_size;i >= 1 ; --i){
+        swap(&array[0], &array[i]);
+        build_heap(array, 0,i - 1);
     }
 }
