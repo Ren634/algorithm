@@ -51,6 +51,6 @@ void merge_sort(int *array, int left, int right){
                 array[k] = tmp[i++];
             }
         }
-            free(tmp);
+        free(tmp);
     }
 }
